@@ -1,13 +1,31 @@
 public class ToDoListApp {
     public static String[] model = new String[10];
+    public static java.util.Scanner scanner = new java.util.Scanner(System.in);
 
     public static void main(String[] args) {
 
-        testAddToDoList();
-        testRemoveToDoList();
-        testShowToDoList();
+//        testAddToDoList();
+//        testRemoveToDoList();
+//        testShowToDoList();
+//        testInputString();
+        testViewShowToDoList();
     }
     // Business Logic
+
+    /**
+     * inputString
+     * TODO : Membaca data string dari input user
+     */
+    public static String inputString(String cmd){
+        System.out.print(cmd + ": ");
+        String data = scanner.nextLine();
+        return data;
+    }
+
+    public static void testInputString(){
+        String data = inputString("Masukkan input");
+        System.out.println(data);
+    }
 
     /**
      * showToDoList
@@ -17,7 +35,7 @@ public class ToDoListApp {
         for (var i = 0; i < model.length ; i++ ) {
             String todo = model[i];
             if(todo != null) {
-                System.out.println("[" + (i+1) + "]" + " " + todo);
+                System.out.println("(" + (i+1) + ")" + " " + todo);
             }
         }
     }
@@ -112,7 +130,36 @@ public class ToDoListApp {
      * TODO : Menampilkan view dari to-do-list
      */
     public static void viewShowToDoList(){
+        boolean isExit = false;
+        while (isExit == false){
+            System.out.println("--- TO DO LIST ---");
+            showToDoList();
+            System.out.println("--- MENU ---");
+            System.out.println("[1] Add");
+            System.out.println("[2] Remove");
+            System.out.println("[3] Exit");
+            System.out.println("--- COMMAND ---");
 
+            var input = inputString("Choose: ");
+            if (input.equals("1")) {
+                viewAddToDoList();
+            } else if (input.equals("2")) {
+                viewRemoveToDoList();
+            } else if (input.equals("3")) {
+                isExit = true;
+            } else {
+                System.out.println("Pilihan tidak dimengerti");
+            }
+        }
+
+    }
+
+    public static void testViewShowToDoList(){
+        addToDoList("Satu");
+        addToDoList("Dua");
+        addToDoList("Tiga");
+        addToDoList("Empat");
+        viewShowToDoList();
     }
 
     /**
