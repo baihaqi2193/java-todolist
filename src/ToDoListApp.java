@@ -3,12 +3,7 @@ public class ToDoListApp {
     public static java.util.Scanner scanner = new java.util.Scanner(System.in);
 
     public static void main(String[] args) {
-
-//        testAddToDoList();
-//        testRemoveToDoList();
-//        testShowToDoList();
-//        testInputString();
-        testViewShowToDoList();
+        viewShowToDoList();
     }
     // Business Logic
 
@@ -32,10 +27,14 @@ public class ToDoListApp {
      * TODO : Menampilkan to-do-list
      */
     public static void showToDoList(){
-        for (var i = 0; i < model.length ; i++ ) {
-            String todo = model[i];
-            if(todo != null) {
-                System.out.println("(" + (i+1) + ")" + " " + todo);
+        if (model[0] == null) {
+            System.out.println("To do list is empty!");
+        } else {
+            for (var i = 0; i < model.length ; i++ ) {
+                String todo = model[i];
+                if(todo != null) {
+                    System.out.println("(" + (i+1) + ")" + " " + todo);
+                }
             }
         }
     }
@@ -96,7 +95,7 @@ public class ToDoListApp {
         // Kalau lebih dari index ga valid
         if(realIdx >= model.length){
             return false;
-        } else if (realIdx <= 0) {
+        } else if (realIdx < 0) {
             return false;
         }
 
@@ -167,7 +166,15 @@ public class ToDoListApp {
      * TODO : Menampilkan view dari add to-do-list
      */
     public static void viewAddToDoList(){
-
+        System.out.println("--- ADD TO DO LIST ---");
+        System.out.println("Type (x) to cancel");
+        var todo = inputString("Add To Do / Cancel: ");
+        if(todo.equals("x")){
+            // Batal
+        } else {
+            addToDoList(todo);
+            System.out.println("To Do Added!");
+        }
     }
 
     /**
@@ -175,6 +182,21 @@ public class ToDoListApp {
      * TODO : Menampilkan view dari remove to-do-list
      */
     public static void viewRemoveToDoList(){
-
+        System.out.println("--- REMOVE TO DO LIST ---");
+        showToDoList();
+        System.out.println("--- COMMAND ---");
+        System.out.println("Type (x) to cancel");
+        var number = inputString("Remove To Do / Cancel: ");
+        if(number.equals("x")){
+            // Batal
+        } else {
+            boolean success = removeToDoList(Integer.valueOf(number));
+            if (success){
+                System.out.println("To Do Removed!");
+            } else {
+                System.out.println("Unable to remove To Do: " + number);
+                System.out.println("Please check your input!");
+            }
+        }
     }
 }
