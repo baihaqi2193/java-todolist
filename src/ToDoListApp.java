@@ -13,13 +13,7 @@ public class ToDoListApp {
      */
     public static String inputString(String cmd){
         System.out.print(cmd + ": ");
-        String data = scanner.nextLine();
-        return data;
-    }
-
-    public static void testInputString(){
-        String data = inputString("Masukkan input");
-        System.out.println(data);
+        return scanner.nextLine();
     }
 
     /**
@@ -39,9 +33,6 @@ public class ToDoListApp {
         }
     }
 
-    public static void testShowToDoList(){
-        showToDoList();
-    }
 
     /**
      * addToDoList
@@ -75,14 +66,6 @@ public class ToDoListApp {
                 model[i] = todo;
                 break;
             }
-        }
-
-
-    }
-
-    public static void testAddToDoList(){
-        for (int i = 1; i <= 5; i++) {
-            addToDoList("Todo ke-" + i);
         }
     }
 
@@ -119,10 +102,6 @@ public class ToDoListApp {
         }
     }
 
-    public static void testRemoveToDoList(){
-        System.out.println(removeToDoList(0));
-    }
-
     // View
     /**
      * viewShowToDoList
@@ -130,7 +109,7 @@ public class ToDoListApp {
      */
     public static void viewShowToDoList(){
         boolean isExit = false;
-        while (isExit == false){
+        while (!isExit){
             System.out.println("--- TO DO LIST ---");
             showToDoList();
             System.out.println("--- MENU ---");
@@ -140,26 +119,17 @@ public class ToDoListApp {
             System.out.println("--- COMMAND ---");
 
             var input = inputString("Choose: ");
-            if (input.equals("1")) {
-                viewAddToDoList();
-            } else if (input.equals("2")) {
-                viewRemoveToDoList();
-            } else if (input.equals("3")) {
-                isExit = true;
-            } else {
-                System.out.println("Pilihan tidak dimengerti");
+            switch (input) {
+                case "1" -> viewAddToDoList();
+                case "2" -> viewRemoveToDoList();
+                case "3" -> isExit = true;
+                default -> System.out.println("Pilihan tidak dimengerti");
             }
         }
 
     }
 
-    public static void testViewShowToDoList(){
-        addToDoList("Satu");
-        addToDoList("Dua");
-        addToDoList("Tiga");
-        addToDoList("Empat");
-        viewShowToDoList();
-    }
+
 
     /**
      * viewAddToDoList
@@ -168,9 +138,9 @@ public class ToDoListApp {
     public static void viewAddToDoList(){
         System.out.println("--- ADD TO DO LIST ---");
         System.out.println("Type (x) to cancel");
-        var todo = inputString("Add To Do / Cancel: ");
+        var todo = inputString("Add To Do / Cancel ");
         if(todo.equals("x")){
-            // Batal
+            System.out.println("Back to previous!");
         } else {
             addToDoList(todo);
             System.out.println("To Do Added!");
@@ -188,7 +158,7 @@ public class ToDoListApp {
         System.out.println("Type (x) to cancel");
         var number = inputString("Remove To Do / Cancel: ");
         if(number.equals("x")){
-            // Batal
+            System.out.println("Back to previous!");
         } else {
             boolean success = removeToDoList(Integer.valueOf(number));
             if (success){
